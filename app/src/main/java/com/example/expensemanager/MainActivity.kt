@@ -28,9 +28,11 @@ import androidx.navigation.compose.rememberNavController
 import com.example.expensemanager.pages.Add
 import com.example.expensemanager.pages.Categories
 import com.example.expensemanager.pages.Expenses
+import com.example.expensemanager.pages.Reports
 import com.example.expensemanager.pages.Setting
 import com.example.expensemanager.ui.theme.ExpenseManagerTheme
 import com.example.expensemanager.ui.theme.TopAppBarBackground
+import io.sentry.compose.withSentryObservableEffect
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +42,7 @@ class MainActivity : ComponentActivity() {
             ExpenseManagerTheme {
                 // A surface container using the 'background' color from the theme
                 var showBottomBar by rememberSaveable{ mutableStateOf(true) }
-                val navController= rememberNavController()
+                val navController= rememberNavController().withSentryObservableEffect()
                 val backStackEntry by navController.currentBackStackEntryAsState()
 
                 showBottomBar = when(backStackEntry?.destination?.route){
@@ -123,7 +125,7 @@ class MainActivity : ComponentActivity() {
                                       .fillMaxSize()
                                       .padding(innerPadding)
                               ){
-                                  Greeting(name = "Reports")
+                                  Reports()
                               }
                           }
                           composable("add"){

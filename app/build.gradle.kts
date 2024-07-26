@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("io.realm.kotlin")
+    id("io.sentry.android.gradle")
 }
 
 android {
@@ -10,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.expensemanager"
-        minSdk = 26
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -81,8 +82,8 @@ dependencies {
     implementation("io.github.serpro69:kotlin-faker:1.13.0")
     implementation("com.github.tehras:charts:0.2.4-alpha")
     implementation("com.google.accompanist:accompanist-pager:0.29.1-alpha")
-    implementation("io.sentry:sentry-android:6.13.1")
-    implementation("io.sentry:sentry-compose-android:6.13.1")
+    implementation("io.sentry:sentry-android:7.12.1")
+    implementation("io.sentry:sentry-compose-android:7.12.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")

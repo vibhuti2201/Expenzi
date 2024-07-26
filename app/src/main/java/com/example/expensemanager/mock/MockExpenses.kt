@@ -2,7 +2,6 @@ package com.example.expensemanager.mock
 
 import androidx.compose.ui.graphics.Color
 import com.example.expensemanager.models.Category
-import com.example.expensemanager.models.Expense
 import com.example.expensemanager.models.Recurrence
 import io.github.serpro69.kfaker.Faker
 import java.time.LocalDateTime
@@ -39,7 +38,7 @@ val mockCategories= listOf(
     )
 )
 
-val mockExpense: List<Expense> = List(30){index->
+val mockExpense: List<Unit> = List(30){ index->
     Expense(
         id=index,
         amount = faker.random.nextInt(min = 1, max = 999)
@@ -60,4 +59,8 @@ val mockExpense: List<Expense> = List(30){index->
         note = faker.australia.animals(),
         category = faker.random.randomValue(mockCategories)
     )
+}
+
+fun Expense(id: Int, amount: Double, date: LocalDateTime?, recurrence: Recurrence, note: String, category: Category) {
+
 }

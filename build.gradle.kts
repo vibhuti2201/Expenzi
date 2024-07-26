@@ -3,4 +3,5 @@ plugins {
     alias(libs.plugins.androidApplication) apply false
     alias(libs.plugins.jetbrainsKotlinAndroid) apply false
     id("io.realm.kotlin") version "1.16.0" apply false
+    id("io.sentry.android.gradle") version "4.10.0" apply false
 }

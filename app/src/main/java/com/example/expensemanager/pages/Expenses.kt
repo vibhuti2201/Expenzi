@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -26,13 +28,13 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.expensemanager.components.ExpensesList
 import com.example.expensemanager.components.PickerTrigger
-import com.example.expensemanager.mock.mockExpense
 import com.example.expensemanager.models.Recurrence
 import com.example.expensemanager.ui.theme.ExpenseManagerTheme
 import com.example.expensemanager.ui.theme.LabelSecondary
 import com.example.expensemanager.ui.theme.TopAppBarBackground
 import com.example.expensemanager.ui.theme.Typography
 import com.example.expensemanager.viewModels.ExpensesViewModel
+import java.text.DecimalFormat
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -97,9 +99,19 @@ val state by vm.uiState.collectAsState()
                        style=Typography.bodyMedium,
                        color= LabelSecondary,
                        modifier=Modifier.padding(end=4.dp,top=3.dp))
-                    Text("${state.sumTotal}",style=Typography.titleLarge)
+                    Text(
+                        DecimalFormat("0.#").format(state.sumTotal),
+                        style=Typography.titleLarge
+                    )
                 }
-                ExpensesList(expenses = mockExpense, modifier = Modifier.weight(1f))
+                ExpensesList(
+                    expenses = state.expenses,
+                    modifier = Modifier
+                        .weight(1f)
+                        .verticalScroll(
+                            rememberScrollState()
+                        )
+                )
                }
 
         }

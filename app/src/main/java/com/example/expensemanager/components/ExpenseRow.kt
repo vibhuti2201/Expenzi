@@ -20,7 +20,7 @@ fun ExpenseRow(expense: Expense,modifier: Modifier=Modifier) {
     Column(modifier=modifier) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Text(
-                expense.note,
+                expense.note?:expense.category!!.name,
                 style = Typography.headlineMedium
             )
             Text(
@@ -29,7 +29,7 @@ fun ExpenseRow(expense: Expense,modifier: Modifier=Modifier) {
             )
         }
         Row(modifier = Modifier.fillMaxWidth().padding(top = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-            CategoryBadge(category = expense.category, modifier = modifier)
+            CategoryBadge(category = expense.category!!, modifier = modifier)
             Text(
                 expense.date.format(DateTimeFormatter.ofPattern("HH:mm")),
                 style = Typography.bodyMedium,

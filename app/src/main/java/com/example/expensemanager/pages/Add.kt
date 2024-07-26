@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
@@ -43,7 +44,6 @@ import com.example.expensemanager.components.UnstyledTextField
 import com.example.expensemanager.models.Recurrence
 import com.example.expensemanager.ui.theme.BackgroundElevated
 import com.example.expensemanager.ui.theme.DividerColor
-import com.example.expensemanager.ui.theme.Primary
 import com.example.expensemanager.ui.theme.Shapes
 import com.example.expensemanager.ui.theme.TopAppBarBackground
 import com.example.expensemanager.ui.theme.Typography
@@ -65,15 +65,14 @@ fun Add(navController: NavController, vm: AddViewModel= viewModel()) {
         Recurrence.Yearly
     )
 
-    val categories = listOf("Groceries", "Bills", "Hobbies", "Take Out")
+//    val categories = listOf("Groceries", "Bills", "Hobbies", "Take Out")
 
     val mContext = LocalContext.current
 
 
     // mDatePicker.maxDate=mCalendar.timeInMillis
 
-    Scaffold(
-        topBar = {
+    Scaffold(topBar = {
             MediumTopAppBar(
                 title = { Text("Add") },
                 colors = TopAppBarDefaults.mediumTopAppBarColors(
@@ -97,7 +96,7 @@ fun Add(navController: NavController, vm: AddViewModel= viewModel()) {
                         UnstyledTextField(
                             value = state.amount,
                             onValueChange = vm::setAmount,
-                            modifier = Modifier.fillMaxWidth().padding(start = 8.dp),
+                            modifier = Modifier.fillMaxWidth(),
                             placeholder = { Text("0") },
                             arrangement = Arrangement.End,
                             maxLines = 1,
@@ -111,7 +110,9 @@ fun Add(navController: NavController, vm: AddViewModel= viewModel()) {
                     })
                     Divider(
                         modifier = Modifier
-                            .padding(start = 16.dp), thickness = 1.dp, color = DividerColor
+                            .padding(start = 16.dp),
+                        thickness = 1.dp,
+                        color = DividerColor
                     )
 
                     TableRow(label = "Recurrence", detailContent = {
@@ -122,7 +123,7 @@ fun Add(navController: NavController, vm: AddViewModel= viewModel()) {
                             onClick = { recurrenceMenuOpened = true },
                             shape = Shapes.large
                         ) {
-                            Text(state.recurrence.name)
+                            Text(state.recurrence?.name ?: Recurrence.None.name)
                             DropdownMenu(
                                 expanded = recurrenceMenuOpened,
                                 onDismissRequest = { recurrenceMenuOpened = false }) {
@@ -152,6 +153,7 @@ fun Add(navController: NavController, vm: AddViewModel= viewModel()) {
 
                         TextButton(onClick = { datePickerShowing = true }) {
                             Text(state.date.toString())
+
                             if (datePickerShowing) {
                                 DatePickerDialog(
                                     onDismissRequest = { datePickerShowing = false },
@@ -178,7 +180,7 @@ fun Add(navController: NavController, vm: AddViewModel= viewModel()) {
 
                     TableRow(label = "Note", detailContent = {
                         UnstyledTextField(
-                            value = state.note ?: "",
+                            value = state.note,
                             placeholder = { Text("Leave some notes") },
                             arrangement = Arrangement.End,
                             onValueChange = vm::setNote,
@@ -201,25 +203,26 @@ fun Add(navController: NavController, vm: AddViewModel= viewModel()) {
                             mutableStateOf(false)
                         }
                         TextButton(
-                            onClick = { categoriesMenuOpened = true },
-                            shape = Shapes.large
+                            onClick = { categoriesMenuOpened = true }, shape = Shapes.large
                         ) {
-                            Text(state.category ?: "Select a category first")
+                            Text(
+                                state.category?.name?: "Select a category first",
+                                color = state.category?.color ?: Color.White
+                            )
                             DropdownMenu(
                                 expanded = categoriesMenuOpened,
                                 onDismissRequest = { categoriesMenuOpened = false }) {
-                                categories.forEach { category ->
+                                state.categories?.forEach { category ->
                                     DropdownMenuItem(
                                         text = {
                                             Row(verticalAlignment = Alignment.CenterVertically) {
                                                 Surface(
                                                     modifier = Modifier.size(10.dp),
                                                     shape = CircleShape,
-                                                    color = Primary
+                                                    color = category.color
                                                 ) {}
                                                 Text(
-                                                    category,
-                                                    modifier = Modifier.padding(start = 8.dp)
+                                                    category.name, modifier = Modifier.padding(start = 8.dp)
                                                 )
                                             }
                                         },
@@ -238,7 +241,8 @@ fun Add(navController: NavController, vm: AddViewModel= viewModel()) {
                             Button(
                                 onClick = vm::submitExpense,
                                 modifier = Modifier.padding(16.dp),
-                                shape = Shapes.large
+                                shape = Shapes.large,
+                                enabled = state.category!=null
                             ) {
                                 Text("Submit expense")
                             }
