@@ -14,7 +14,7 @@ identify cost-saving opportunities.
   
   <summary>Offers insights into budget allocation and expense distribution across different categories</summary>
 
-### Scenario
+
 
 ## 🛠 Tech Used
 - Android
