@@ -216,7 +216,7 @@ fun Add(navController: NavController, vm: AddViewModel= viewModel()) {
                                     DropdownMenuItem(
                                         text = {
                                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                                Surface(
+                                               Surface(
                                                     modifier = Modifier.size(10.dp),
                                                     shape = CircleShape,
                                                     color = category.color

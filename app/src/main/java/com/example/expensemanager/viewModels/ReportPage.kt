@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -61,11 +63,17 @@ fun ReportPage(
                 )
                 Row(modifier= Modifier.padding(top=4.dp)){
                     Text(
-                        "USD",
+                        "IND",
                         style = Typography.bodyMedium,
                         color = LabelSecondary,
                         modifier = Modifier.padding(end = 4.dp)
                     )
+//  "0.#" means:
+//0: At least one digit before the decimal point.
+//.#: Optionally display one digit after the decimal point, but only if it's non-zero.
+//Example:
+//If uiState.totalInRange = 123.45, it would display 123.5.
+//If uiState.totalInRange = 123.00, it would display 123.
                     Text(DecimalFormat("0.#").format(uiState.totalInRange), style = Typography.headlineMedium)
                 }
             }
@@ -73,7 +81,7 @@ fun ReportPage(
                 Text("Avg/day", style = Typography.titleSmall)
                 Row(modifier= Modifier.padding(top=4.dp)){
                     Text(
-                        text = "USD",
+                        text = "IND",
                         style= Typography.bodyMedium,
                         color = LabelSecondary,
                         modifier = Modifier.padding(end = 4.dp)
@@ -103,6 +111,9 @@ fun ReportPage(
         ExpensesList(
             expenses = uiState.expenses, modifier = Modifier
                 .weight(1f)
+                .verticalScroll(
+                    rememberScrollState()
+                )
         )
 
     }

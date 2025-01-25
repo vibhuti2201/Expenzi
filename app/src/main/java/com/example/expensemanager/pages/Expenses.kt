@@ -41,15 +41,15 @@ import java.text.DecimalFormat
 @Composable
 fun Expenses(navController: NavController,vm: ExpensesViewModel= androidx.lifecycle.viewmodel.compose.viewModel()) {
 
-    val recurrences = listOf( 
+    val recurrences = listOf(
         Recurrence.Daily,
         Recurrence.Weekly,
         Recurrence.Monthly,
         Recurrence.Yearly
     )
-val state by vm.uiState.collectAsState()
+    val state by vm.uiState.collectAsState()
     var recurrenceMenuOpened by remember{
-       mutableStateOf(false)
+        mutableStateOf(false)
     }
     Scaffold(
         topBar = {
@@ -67,38 +67,38 @@ val state by vm.uiState.collectAsState()
                     .padding(horizontal = 16.dp)
                     .padding(top = 16.dp)
                     .fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-               ){
-                  Row(verticalAlignment = Alignment.CenterVertically){
-                     Text("Total for:",
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Row(verticalAlignment = Alignment.CenterVertically){
+                    Text("Total for:",
                         style = Typography.bodyMedium,
-                         )
-                      PickerTrigger(
-                          state.recurrence.target?:Recurrence.None.target,
-                          onClick = { recurrenceMenuOpened=!recurrenceMenuOpened },
-                          modifier = Modifier.padding(start=16.dp)
-                      )
-                      DropdownMenu(
-                          expanded = recurrenceMenuOpened,
-                          onDismissRequest = { recurrenceMenuOpened = false }) {
-                          recurrences.forEach { recurrences ->
-                              DropdownMenuItem(
-                                  text = { Text(recurrences.target) },
-                                   onClick = {
-                                      vm.setRecurrence(recurrences)
-                                      recurrenceMenuOpened = false
-                                  })
+                    )
+                    PickerTrigger(
+                        state.recurrence.target?:Recurrence.None.target,
+                        onClick = { recurrenceMenuOpened=!recurrenceMenuOpened },
+                        modifier = Modifier.padding(start=16.dp)
+                    )
+                    DropdownMenu(
+                        expanded = recurrenceMenuOpened,
+                        onDismissRequest = { recurrenceMenuOpened = false }) {
+                        recurrences.forEach { recurrences ->
+                            DropdownMenuItem(
+                                text = { Text(recurrences.target) },
+                                onClick = {
+                                    vm.setRecurrence(recurrences)
+                                    recurrenceMenuOpened = false
+                                })
 
-                          }
-                      }
-                  }
+                        }
+                    }
+                }
                 Row(modifier=Modifier.padding(vertical=32.dp))
                 {
-                   Text(
-                       "$",
-                       style=Typography.bodyMedium,
-                       color= LabelSecondary,
-                       modifier=Modifier.padding(end=4.dp,top=3.dp))
+                    Text(
+                        "\u20B9",
+                        style=Typography.bodyMedium,
+                        color= LabelSecondary,
+                        modifier=Modifier.padding(end=4.dp,top=3.dp))
                     Text(
                         DecimalFormat("0.#").format(state.sumTotal),
                         style=Typography.titleLarge
@@ -112,7 +112,7 @@ val state by vm.uiState.collectAsState()
                             rememberScrollState()
                         )
                 )
-               }
+            }
 
         }
     )

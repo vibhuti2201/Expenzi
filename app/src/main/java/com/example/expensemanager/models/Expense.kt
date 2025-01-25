@@ -14,8 +14,10 @@ class Expense(): RealmObject {
     private var _recurrenceName: String = "None"
     val recurrence: Recurrence get() { return _recurrenceName.toRecurrence() }
 
+
     private var _dateValue: String = LocalDateTime.now().toString()
-    val date: LocalDateTime get() { return LocalDateTime.parse(_dateValue) }
+
+    val date: LocalDateTime get(){ return  LocalDateTime.parse(_dateValue) }
 
     var note: String = ""
     var category: Category? = null

@@ -48,7 +48,7 @@ class AddViewModel : ViewModel() {
         if (parsed != null) {
             _uiState.update { currentState ->
                 currentState.copy(
-                    amount = amount.trim().ifEmpty { "0" },
+                    amount = amount.trim().ifEmpty { "0" }
                 )
             }
         }

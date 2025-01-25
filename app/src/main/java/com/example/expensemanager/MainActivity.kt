@@ -32,17 +32,21 @@ import com.example.expensemanager.pages.Reports
 import com.example.expensemanager.pages.Setting
 import com.example.expensemanager.ui.theme.ExpenseManagerTheme
 import com.example.expensemanager.ui.theme.TopAppBarBackground
-import io.sentry.compose.withSentryObservableEffect
+import io.sentry.compose.withSentryObservableEffect as withSentryObservableEffect1
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //It ensures that the layout is resized when the keyboard appears,
+        // so the content remains visible and is not covered by the keyboard.
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+
         setContent {
             ExpenseManagerTheme {
                 // A surface container using the 'background' color from the theme
                 var showBottomBar by rememberSaveable{ mutableStateOf(true) }
-                val navController= rememberNavController().withSentryObservableEffect()
+                val navController= rememberNavController().withSentryObservableEffect1()
                 val backStackEntry by navController.currentBackStackEntryAsState()
 
                 showBottomBar = when(backStackEntry?.destination?.route){
@@ -51,111 +55,111 @@ class MainActivity : ComponentActivity() {
                 }
                 Scaffold(
                     bottomBar = {
-                         if(showBottomBar){
-                             NavigationBar(containerColor = TopAppBarBackground) {
-                                 NavigationBarItem(
-                                     selected = backStackEntry?.destination?.route=="expenses",
-                                     onClick = { navController.navigate("expenses") },
-                                     label = {
-                                         Text("Expenses")
-                                     },
-                                     icon = {
-                                         Icon(
-                                             painterResource(id = R.drawable.upload),
-                                             contentDescription = "Upload"
-                                         )
-                                     }
-                                 )
-                                 NavigationBarItem(
-                                     selected = backStackEntry?.destination?.route=="reports",
-                                     onClick = { navController.navigate("reports") },
-                                     label = {
-                                         Text("Reports")
-                                     },
-                                     icon = {
-                                         Icon(
-                                             painterResource(id = R.drawable.bar_chart),
-                                             contentDescription = "Reports"
-                                         )
-                                     }
-                                 )
-                                 NavigationBarItem(
-                                     selected = backStackEntry?.destination?.route=="add",
-                                     onClick = { navController.navigate("add") },
-                                     label = {
-                                         Text("Add")
-                                     },
-                                     icon = {
-                                         Icon(
-                                             painterResource(id = R.drawable.add),
-                                             contentDescription = "Add"
-                                         )
-                                     }
-                                 )
-                                 NavigationBarItem(
-                                     selected = backStackEntry?.destination?.route?.startsWith("settings")?: false,
-                                     onClick = { navController.navigate("settings") },
-                                     label = {
-                                         Text("Settings")
-                                     },
-                                     icon = {
-                                         Icon(
-                                             painterResource(id = R.drawable.settings),
-                                             contentDescription = "Settings"
-                                         )
-                                     }
-                                 )
-                             }
-                         }
+                        if(showBottomBar){
+                            NavigationBar(containerColor = TopAppBarBackground) {
+                                NavigationBarItem(
+                                    selected = backStackEntry?.destination?.route=="expenses",
+                                    onClick = { navController.navigate("expenses") },
+                                    label = {
+                                        Text("Expenses")
+                                    },
+                                    icon = {
+                                        Icon(
+                                            painterResource(id = R.drawable.upload),
+                                            contentDescription = "Upload"
+                                        )
+                                    }
+                                )
+                                NavigationBarItem(
+                                    selected = backStackEntry?.destination?.route=="reports",
+                                    onClick = { navController.navigate("reports") },
+                                    label = {
+                                        Text("Reports")
+                                    },
+                                    icon = {
+                                        Icon(
+                                            painterResource(id = R.drawable.bar_chart),
+                                            contentDescription = "Reports"
+                                        )
+                                    }
+                                )
+                                NavigationBarItem(
+                                    selected = backStackEntry?.destination?.route=="add",
+                                    onClick = { navController.navigate("add") },
+                                    label = {
+                                        Text("Add")
+                                    },
+                                    icon = {
+                                        Icon(
+                                            painterResource(id = R.drawable.add),
+                                            contentDescription = "Add"
+                                        )
+                                    }
+                                )
+                                NavigationBarItem(
+                                    selected = backStackEntry?.destination?.route?.startsWith("settings")?: false,
+                                    onClick = { navController.navigate("settings") },
+                                    label = {
+                                        Text("Settings")
+                                    },
+                                    icon = {
+                                        Icon(
+                                            painterResource(id = R.drawable.settings),
+                                            contentDescription = "Settings"
+                                        )
+                                    }
+                                )
+                            }
+                        }
                     },
                     content={innerPadding->
-                      NavHost(navController= navController,startDestination="expenses"){
-                          composable("expenses"){
-                              Surface(
-                                  modifier = Modifier
-                                      .fillMaxSize()
-                                      .padding(innerPadding)
-                              ){
-                                  Expenses(navController)
-                              }
-                          }
-                          composable("reports"){
-                              Surface(
-                                  modifier = Modifier
-                                      .fillMaxSize()
-                                      .padding(innerPadding)
-                              ){
-                                  Reports()
-                              }
-                          }
-                          composable("add"){
-                              Surface(
-                                  modifier = Modifier
-                                      .fillMaxSize()
-                                      .padding(innerPadding)
-                              ){
-                                  Add(navController)
-                              }
-                          }
-                          composable("settings"){
-                              Surface(
-                                  modifier = Modifier
-                                      .fillMaxSize()
-                                      .padding(innerPadding)
-                              ){
-                                  Setting(navController)
-                              }
-                          }
-                          composable("settings/categories"){
-                              Surface(
-                                  modifier= Modifier
-                                      .fillMaxSize()
-                                      .padding(innerPadding)
-                              ) {
-                                 Categories(navController)
-                              }
-                          }
-                      }
+                        NavHost(navController= navController,startDestination="expenses"){
+                            composable("expenses"){
+                                Surface(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(innerPadding)
+                                ){
+                                    Expenses(navController)
+                                }
+                            }
+                            composable("reports"){
+                                Surface(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(innerPadding)
+                                ){
+                                    Reports()
+                                }
+                            }
+                            composable("add"){
+                                Surface(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(innerPadding)
+                                ){
+                                    Add(navController)
+                                }
+                            }
+                            composable("settings"){
+                                Surface(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(innerPadding)
+                                ){
+                                    Setting(navController)
+                                }
+                            }
+                            composable("settings/categories"){
+                                Surface(
+                                    modifier= Modifier
+                                        .fillMaxSize()
+                                        .padding(innerPadding)
+                                ) {
+                                    Categories(navController)
+                                }
+                            }
+                        }
                     }
                 )
             }

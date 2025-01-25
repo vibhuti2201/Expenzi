@@ -18,16 +18,16 @@ fun ExpensesList(expenses: List<Expense>, modifier: Modifier= Modifier)
       if (groupedExpenses.isEmpty()) {
          Text("No data for selected date range.", modifier = Modifier.padding(top = 32.dp))
       } else {
-       groupedExpenses.keys.forEach{date->
-          if(groupedExpenses[date]!=null)
-          {
-             ExpensesDayGroup(
-                date = date,
-                dayExpenses = groupedExpenses[date]!!,
-                modifier= Modifier.padding(top=24.dp)
-             )
-          }
-       }
-      }
+         groupedExpenses.keys.forEach{date->
+            if(groupedExpenses[date]!=null)
+            {
+               ExpensesDayGroup(
+                  date = date,
+                  dayExpenses = groupedExpenses[date]!!,
+                  modifier= Modifier.padding(top=24.dp)
+               )
+            }
+         }
       }
    }
+}

@@ -8,7 +8,7 @@ sealed class Recurrence(val name: String, val target: String){
     object Yearly : Recurrence("Yearly", "This year")
 }
 
-fun String.toRecurrence(): Recurrence {
+fun String.toRecurrence(): Recurrence{
     return when (this) {
         "None" -> Recurrence.None
         "Daily" -> Recurrence.Daily
@@ -18,4 +18,5 @@ fun String.toRecurrence(): Recurrence {
         else -> Recurrence.None
     }
 }
+
 

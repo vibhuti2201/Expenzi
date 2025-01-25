@@ -37,7 +37,7 @@ class ExpensesViewModel :ViewModel()
     fun setRecurrence(recurrence: Recurrence){
         val (start, end) = calculateDateRange(recurrence, 0)
 
-        val filteredExpenses= uiState.value.expenses.filter { expense->
+        val filteredExpenses= db.query<Expense>().find().filter { expense->
             (expense.date.toLocalDate().isAfter(start) && expense.date.toLocalDate()
                 .isBefore(end)) || expense.date.toLocalDate()
                 .isEqual(start) || expense.date.toLocalDate().isEqual(end)

@@ -30,7 +30,7 @@ class CategoriesViewModel : ViewModel() {
                 categories = db.query<Category>().find()
             )
         }
-
+//Keeps the app's category list in sync with the database in real-time.
         viewModelScope.launch(Dispatchers.IO) {
             db.query<Category>().asFlow().collect { changes ->
                 _uiState.update { currentState ->
@@ -76,6 +76,7 @@ class CategoriesViewModel : ViewModel() {
 
     fun createNewCategory() {
         viewModelScope.launch(Dispatchers.IO) {
+            //It saves a new category (e.g., "Food" with a specific color) into the database.
             db.write {
                 this.copyToRealm(Category(
                     _uiState.value.newCategoryName,
@@ -94,6 +95,8 @@ class CategoriesViewModel : ViewModel() {
     fun deleteCategory(category: Category) {
         viewModelScope.launch(Dispatchers.IO) {
             db.write {
+                //It locates a specific category in the database by its unique ID (_id) and deletes it.
+                //"_id == $0" is a query syntax used in the database to filter records based on a condition.
                 val deletingCategory = this.query<Category>("_id == $0", category._id).find().first()
                 delete(deletingCategory)
             }

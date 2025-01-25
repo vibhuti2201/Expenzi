@@ -24,26 +24,26 @@ fun ExpensesDayGroup(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
-            Text(
-                date.formatDay(),
-                style= Typography.headlineMedium,
-                color= LabelSecondary)
-            Divider(modifier=Modifier.padding(top=10.dp,bottom=4.dp))
+        Text(
+            date.formatDay(),
+            style= Typography.headlineMedium,
+            color= LabelSecondary)
+        Divider(modifier=Modifier.padding(top=10.dp,bottom=4.dp))
 
-                dayExpenses.expenses.forEach{ expense-> ExpenseRow(expense = expense,modifier= Modifier.padding(top=12.dp))
-                                            
-                }
+        dayExpenses.expenses.forEach{ expense-> ExpenseRow(expense = expense,modifier= Modifier.padding(top=12.dp))
 
-            Divider(modifier=Modifier.padding(top=16.dp,bottom=4.dp))
-            Row(modifier= Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween){
-                Text("Total:", style = Typography.bodyMedium, color = LabelSecondary)
-                Text(
-                  DecimalFormat("USD 0.#").format(dayExpenses.total),
-                    style = Typography.headlineMedium,
-                    color = LabelSecondary)
-            }
         }
+
+        Divider(modifier=Modifier.padding(top=16.dp,bottom=4.dp))
+        Row(modifier= Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween){
+            Text("Total:", style = Typography.bodyMedium, color = LabelSecondary)
+            Text(
+                DecimalFormat("IND 0.#").format(dayExpenses.total),
+                style = Typography.headlineMedium,
+                color = LabelSecondary)
+        }
+    }
 
 
 }

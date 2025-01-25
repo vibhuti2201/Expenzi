@@ -18,6 +18,7 @@ fun LocalDate.formatDay(): String {
     }
 }
 
+
 fun LocalDateTime.formatDayForRange(): String {
     val today = LocalDateTime.now()
     val yesterday = today.minusDays(1)

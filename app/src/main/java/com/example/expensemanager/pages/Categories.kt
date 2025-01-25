@@ -141,6 +141,10 @@ fun Categories(navController: NavController,vm: CategoriesViewModel= viewModel()
                                     }
                                 }
                             }
+                            //The if condition ensures that the divider is only added between items in the list,
+                            // not after the last item. Without this check, a divider would appear after the last category,
+                            // which is usually not desired in lists.
+
                             if (index < uiState.categories.size - 1) {
                                 Row(modifier = Modifier.background(BackgroundElevated).height(2.dp)) {
                                     Divider(

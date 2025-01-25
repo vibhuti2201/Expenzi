@@ -1,7 +1,6 @@
 package com.example.expensemanager.pages
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -37,7 +36,8 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Setting(navController: NavController) {
+fun Setting(navController: NavController)
+{
     val coroutineScope = rememberCoroutineScope()
     var deleteConfirmationShowing by remember {
         mutableStateOf(false)
@@ -68,7 +68,7 @@ fun Setting(navController: NavController) {
             Column(modifier = Modifier.padding(innerPadding)) {
                 Column(
                     modifier = Modifier
-                        .padding(16.dp)
+                        .padding(8.dp)
                         .clip(Shapes.large)
                         .background(BackgroundElevated)
                         .fillMaxWidth()
@@ -76,10 +76,11 @@ fun Setting(navController: NavController) {
                     TableRow(
                         label = "Categories",
                         hasArrow = true,
+                        modifier=Modifier.padding(8.dp),
 //                        modifier = Modifier.clickable {
 //                            navController.navigate("settings/categories")
 //                        }
-                        onClick = {_->
+                          onClick={_->
                             navController.navigate("settings/categories")
                         }
                     )
@@ -91,9 +92,13 @@ fun Setting(navController: NavController) {
                     TableRow(
                         label = "Erase all data",
                         isDestructive = true,
-                        modifier = Modifier.clickable {
-                            deleteConfirmationShowing = true
-                        })
+//                        modifier = Modifier.clickable {
+//                            deleteConfirmationShowing = true
+//                        }
+                        onClick={_->
+                            deleteConfirmationShowing=true
+                        }
+                    )
 
                     if (deleteConfirmationShowing) {
                         AlertDialog(
