@@ -94,6 +94,7 @@ fun Expenses(navController: NavController,vm: ExpensesViewModel= androidx.lifecy
                 }
                 Row(modifier=Modifier.padding(vertical=32.dp))
                 {
+                    //\u20B9 ->Rupees symbol
                     Text(
                         "\u20B9",
                         style=Typography.bodyMedium,
